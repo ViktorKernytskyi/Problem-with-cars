@@ -4,39 +4,38 @@ require_once 'Car.php';
 
 class ServiceCenter {
     public $workers = [];
-    public $cars = [];
+    //public $cars = [];
 
-    public function addWorker(Worker $worker) {
-        $this->workers[] = $worker;
+
+
+//class Workshop {
+//    public $workers = [];
+
+    public function __construct() {
+        // Додати працівників в майстерню
+        $this->workers[] = new Worker('Універсал', true);
+        $this->workers[] = new Worker('Універсал', true);
+        $this->workers[] = new Worker('Нові моделі', true);
+        $this->workers[] = new Worker('Старого типу', true);
+        $this->workers[] = new Worker('Японці', true);
+        $this->workers[] = new Worker('Ауді', true);
     }
 
-    public function addCar(Car $car) {
-        $this->cars[] = $car;
-    }
-
-    public function findFreeWorker($carBrand) {
+    public function repairCar($car) {
         foreach ($this->workers as $worker) {
-            if ($worker->isFree && $this->isSpecialized($worker->specialization, $carBrand)) {
-                return $worker;
+            if ($worker->takeOrder($car)) {
+                if ($worker->diagnose($car)) {
+                    echo "Автомобіль успішно відремонтовано.\n";
+                    //  працівник отримує оплату за ремонт
+                    // $worker->isFree = true;
+                } else {
+                    echo "Ми не можемо виправити проблему, вибачте.\n";
+                    //  працівник отримує оплату навіть якщо проблему не вдається вирішити
+                    // $worker->isFree = true;
+                }
+                return;
             }
         }
-        return null;
+        echo "Немає доступних працівників для даної марки автомобіля.\n";
     }
-
-//    private function isSpecialized($specialization, $carBrand) {
-//        switch ($specialization) {
-//            case 'Універсал':
-//                return true;
-//            case 'Тільки нові моделі':
-//                return false;
-//            case 'Тільки старого типу':
-//                return true;
-//            case 'Тільки японці':
-//                return true;
-//            case 'Тільки ауді':
-//                return true;
-//            default:
-//                return false;
-//        }
-//    }
 }
