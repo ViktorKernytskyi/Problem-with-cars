@@ -2,6 +2,7 @@
 require_once 'Worker.php';
 require_once 'Car.php';
 
+
 class ServiceCenter {
     public $workers = [];
     //public $cars = [];
@@ -23,6 +24,7 @@ class ServiceCenter {
 
     public function repairCar($car) {
         foreach ($this->workers as $worker) {
+
             if ($worker->takeOrder($car)) {
                 if ($worker->diagnose($car)) {
                     echo "Автомобіль успішно відремонтовано.\n";
@@ -37,5 +39,16 @@ class ServiceCenter {
             }
         }
         echo "Немає доступних працівників для даної марки автомобіля.\n";
+    }
+    public function diagnose($car) {
+        $diagnPrice = rand(50, 200);
+        $status = true; // Вважаємо, що діагностика завжди успішна
+        return ['status' => $status, 'diagnPrice' => $diagnPrice];
+    }
+
+    private function calculateRepairPrice($diagnPrice) {
+        // Випадкове призначення ціни з урахуванням ціни за діагностику
+        $basePrice = rand(100, 500);
+        return $basePrice + $diagnPrice;
     }
 }

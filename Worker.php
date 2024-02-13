@@ -2,12 +2,10 @@
 
 
 class Worker {
-    public $pricePerHour;
     public $isFree;
     public $specialization;
 
-    public function __construct($pricePerHour, $isFree, $specialization) {
-        $this->pricePerHour = $pricePerHour;
+    public function __construct( $isFree, $specialization) {
         $this->isFree = $isFree;
         $this->specialization = $specialization;
     }
@@ -31,5 +29,10 @@ class Worker {
         return $isSuccessful;
     }
 }
+
+
+
+
+
 
 

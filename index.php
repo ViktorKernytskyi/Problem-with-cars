@@ -8,7 +8,7 @@ $cars = [
     2 => ['brand'=>'Lexus', 'year' => 2022, 'color' => 'зелений', 'manufacturingLocation' => 'Japan', 'currentBreakdown' => 'Проблема зі світломм'],
     3 => ['brand'=>'Kia', 'year' => 1980, 'color' => 'синій', 'manufacturingLocation' => 'Koreya', 'currentBreakdown' => 'Проблема з кондиціонером']
 ];
-
+$diagnPrice = 100;
 // Створення екземпляру сервісного центру
 $serviceCenter = new ServiceCenter();
 

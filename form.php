@@ -23,7 +23,7 @@ if (!empty($_POST)) {
 }
 if (empty($errors)) {
     include 'serviceCenter.php';
-    $car = new Car($_POST['brand'], $_POST['year'], $_POST['currentBreakdown']);
+    $car = new Car($_POST['brand'], $_POST['year'], $_POST['color'], $_POST['manufacturingLocation'], $_POST['currentBreakdown']);
     $ServiceCenter = new ServiceCenter();
     $ServiceCenter->repairCar($car);
 } else {
