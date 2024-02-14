@@ -1,6 +1,7 @@
 <?php
 
-
+include 'index.php';
+include 'car.php';
 class Worker {
     public $isFree;
     public $specialization;
@@ -13,7 +14,7 @@ class Worker {
 
     public function takeOrder($car)
     {
-        if ($this->isFree && $this->specialization == $car->brand) {
+        if ($this->isFree && $this->specialization == $car->brand && $_POST['brand'] === 'brand') {
             echo "Працівник прийняв замовлення на {$car->brand}.\n";
             return true;
         } else {
@@ -24,11 +25,54 @@ class Worker {
 
     public function diagnose($car)
     {
-        // працівник успішно діагностує проблему
-        $isSuccessful = true;
-        return $isSuccessful;
+        // Логіка діагностики на основі бренду автомобіля та його поточної поломки
+        switch ($car->brand) {
+            case 'BMW':
+                switch ($car->currentBreakdown) {
+                    case 'Проблема з двигуном':
+                        return [
+                            'status' => true,
+                            'diagnPrice' => 200
+                        ];
+                    // Додати обробку інших проблем для BMW, якщо потрібно
+                    default:
+                        return [
+                            'status' => false,
+                            'diagnPrice' => 0
+                        ];
+                }
+            case 'Ford':
+                switch ($car->currentBreakdown) {
+                    case 'Пізда рулю':
+                        return [
+                            'status' => true,
+                            'diagnPrice' => 150
+                        ];
+                    // Додати обробку інших проблем для Ford, якщо потрібно
+                    default:
+                        return [
+                            'status' => false,
+                            'diagnPrice' => 0
+                        ];
+                }
+            // Додати обробку інших брендів автомобілів, якщо потрібно
+            default:
+                return [
+                    'status' => false,
+                    'diagnPrice' => 0
+                ];
+        }
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 

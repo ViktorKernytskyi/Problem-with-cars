@@ -19,11 +19,12 @@ foreach ($cars as $car) {
 
 
 // Виведення інформації про автомобілі в сервісному центру
-echo "Автомобілі в сервісному центрі:<br>";
-foreach ($serviceCenter->cars as $car) {
-    echo "Марка: {$car->brand}, Рік: {$car->year}, Колір: {$car->color}, Місце виробництва: {$car->manufacturingLocation}, Поточна поломка: {$car->currentBreakdown}<br>";
+//echo "Автомобілі в сервісному центрі:<br>";
+if (!empty($serviceCenter->cars)) {
+    foreach ($serviceCenter->cars as $car) {
+        echo "Марка: {$car->brand}, Рік: {$car->year}, Колір: {$car->color}, Місце виробництва: {$car->manufacturingLocation}, Поточна поломка: {$car->currentBreakdown}<br>";
+    }
 }
-
 
 require_once('form.php');
 ?>

@@ -51,4 +51,8 @@ class ServiceCenter {
         $basePrice = rand(100, 500);
         return $basePrice + $diagnPrice;
     }
+    public function addCar($car) {
+        // Додавання автомобіля у список відремонтованих
+        $this->repairedCars[] = $car;
+    }
 }
