@@ -1,5 +1,5 @@
 <?php
-
+include 'serviceCenter.php';
 
 if (!empty($_POST)) {
 
@@ -22,15 +22,24 @@ if (!empty($_POST)) {
     }
 }
 if (empty($errors)) {
-    include 'serviceCenter.php';
+
     $car = new Car($_POST['brand'], $_POST['year'], $_POST['color'], $_POST['manufacturingLocation'], $_POST['currentBreakdown']);
     $ServiceCenter = new ServiceCenter();
     $ServiceCenter->repairCar($car);
+
 } else {
     foreach ($errors as $err) {
         echo '<strong>' . $err . '</strong><br>';
     }
 }
+ //Перевірка наявності даних у масиві $_POST та їх валідація
+if(isset($_POST['submit'])) {
+    $brand = $_POST['brand'];
+    $year = $_POST['year'];
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
