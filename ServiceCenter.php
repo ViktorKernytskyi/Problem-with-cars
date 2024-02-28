@@ -1,37 +1,58 @@
 <?php
 require_once 'Worker.php';
 require_once 'Car.php';
+require_once 'data.php';
 
 
-class ServiceCenter {
+class ServiceCenter
+{
     public $workers = [];
-   // public $cars = [];
+
+    // public $cars = [];
 
 
-
-
-
-    public function __construct() {
-        // Додати працівників в майстерню
-        $this->workers[] = new Worker('Універсал', true);
-        $this->workers[] = new Worker('Універсал', true);
-        $this->workers[] = new Worker('Тільки нові моделі (після 2005 року)', true);
-        $this->workers[] = new Worker('Тільки німці', true);
-        $this->workers[] = new Worker('Тільки старого типу (до 1998)', true);
-        $this->workers[] = new Worker('Тільки японці, але двигун будь якої машини', true);
-        $this->workers[] = new Worker('Тільки ауді, але якщо інші зайняті, то без виїбонів - універсал', true);
+    public function __construct()
+    {
+        // Ініціалізуємо працівників
+        // Можливо, краще ініціалізувати їх зовні у конструкторі, але залишимо це вам
+        $this->initializeEmployees();
     }
 
-    public function repairCar($car) {
-        foreach ($this->workers as $worker) {
-            if ($worker->takeOrder($car)) {
-                $repairResult = $worker->repair($car);
-                if ($repairResult) {
-                    return;
+    private function initializeEmployees()
+    {
+        // Створюємо працівників
+        $worker1 = new Worker(50, true, 'Універсал');
+        $worker2 = new Worker(45, true, 'Універсал');
+        $worker3 = new Worker(55, true, 'Тільки нові моделі (після 2005 року)');
+        $worker4 = new Worker(60, true, 'Тільки німці');
+        $worker5 = new Worker(40, true, 'Тільки старого типу (до 1998)');
+        $worker6 = new Worker(65, true, 'Тільки японці, але двигун будь якої машини');
+        $worker7 = new Worker(70, true, 'Тільки ауді, але якщо інші зайняті, то без виїбонів - універсал');
+
+        // Додаємо працівників до списку працівників СТО
+        $this->workers = [$worker1, $worker2, $worker3, $worker4, $worker5, $worker6, $worker7];
+    }
+
+
+
+    public function findAvailableEmployee($brand, $cars) {
+        var_dump($_POST['brand']);
+
+        foreach ($cars as $car) {
+            if ($car['brand'] === $brand) {
+                echo "Працівник прийняв замовлення на {$car->brand}.";
+                foreach ($this->workers as $worker) {
+                    if ($worker->isAvailable && $worker->specialization === $car->brand ) {
+                        return $worker;
+                    }
                 }
             }
         }
-        echo "<br>" . "Немає доступних працівників для даної марки автомобіля." ;
+        echo "<br>" . "Вибачте, немає доступного працівника для {$car->brand}.";
+        return null;
+    }
+    public function present(){
+        echo 'ServiceCenter';
     }
 
 
