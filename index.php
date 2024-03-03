@@ -1,7 +1,6 @@
 <?php
 require_once('Car.php');
 require_once('ServiceCenter.php');
-require_once('data.php');
 require_once('form.php');
 
 // Обробка даних форми

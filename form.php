@@ -1,5 +1,6 @@
 <?php
 include 'serviceCenter.php';
+require_once('Car.php');
 
 if (!empty($_POST)) {
 
@@ -25,8 +26,11 @@ if (empty($errors)) {
 
     $car = new Car($_POST['brand'], $_POST['year'], $_POST['color'], $_POST['manufacturingLocation'], $_POST['currentBreakdown']);
     $ServiceCenter = new ServiceCenter();
-   // $ServiceCenter->repairCar($car);
-    $ServiceCenter->findAvailableEmployee($_POST['brand'],$car);
+       $car -> findAvailableEmployee($_POST['brand'],$car);
+
+    //$ServiceCenter->diagnose($car);
+    $ServiceCenter->repair($car);
+    $car->present();
 } else {
     foreach ($errors as $err) {
         echo '<strong>' . $err . '</strong><br>';

@@ -1,20 +1,19 @@
 <?php
 require_once 'Worker.php';
 require_once 'Car.php';
-require_once 'data.php';
 
 
 class ServiceCenter
 {
+    //private static $cars;
     public $workers = [];
 
-    // public $cars = [];
+
 
 
     public function __construct()
     {
-        // Ініціалізуємо працівників
-        // Можливо, краще ініціалізувати їх зовні у конструкторі, але залишимо це вам
+
         $this->initializeEmployees();
     }
 
@@ -35,25 +34,45 @@ class ServiceCenter
 
 
 
-    public function findAvailableEmployee($brand, $cars) {
-        var_dump($_POST['brand']);
+    public function diagnose($car) {
+        // Логіка для діагностики
+        $diagnPrice = rand(50, 200);
 
-        foreach ($cars as $car) {
-            if ($car['brand'] === $brand) {
-                echo "Працівник прийняв замовлення на {$car->brand}.";
-                foreach ($this->workers as $worker) {
-                    if ($worker->isAvailable && $worker->specialization === $car->brand ) {
-                        return $worker;
-                    }
-                }
+        $status = true; // Вважаємо, що діагностика завжди успішна
+        echo   "<br>" . "Вартість діагностики складає - " . $diagnPrice ." &nbsp"."грн.";
+        return ['status' => $status, 'diagnPrice' => $diagnPrice];
+
+    }
+
+    public function repair($car) {
+        // Логіка для ремонту
+        $diagnResult = $this->diagnose($car);
+        if ($diagnResult['status']) {
+            $repairPrice = $this->calculateRepairPrice($diagnResult['diagnPrice']);
+            // Позначимо, що працівник зараз зайнятий
+            $this->isFree = false;
+            if (!empty($car)) {
+                echo "<br>" . " Ремонт автомобіля {$car->brand}   розпочато. Ціна ремонту: {$repairPrice}". "<br>";
             }
+            // Моделюємо ремонт, можна використовувати реальну логіку
+            sleep(3); // Припустимо, що ремонт займає 3 секунди
+            // Позначимо, що працівник знову доступний після ремонту
+            $this->isFree = true;
+            echo "Ремонт автомобіля {$car->brand} завершено". "<br>";
+            return true;
+        } else {
+            echo "Ми не можемо виправити проблему автомобіля {$car->brand}, вибачте". "<br>";
+            return false;
         }
-        echo "<br>" . "Вибачте, немає доступного працівника для {$car->brand}.";
-        return null;
     }
-    public function present(){
-        echo 'ServiceCenter';
+
+    private function calculateRepairPrice($diagnPrice) {
+        // Випадкове призначення ціни з урахуванням ціни за діагностику
+        $basePrice = rand(100, 500);
+        return $basePrice + $diagnPrice;
     }
+
+
 
 
 }
