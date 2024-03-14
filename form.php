@@ -30,7 +30,9 @@ if (empty($errors)) {
 
     //$ServiceCenter->diagnose($car);
     $ServiceCenter->repair($car);
+
     $car->present();
+
 } else {
     foreach ($errors as $err) {
         echo '<strong>' . $err . '</strong><br>';

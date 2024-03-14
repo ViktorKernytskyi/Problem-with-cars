@@ -73,21 +73,22 @@ class Car
         public static function findAvailableEmployee($brand, $car)
     {
         $employeeAvailable = false; // Змінна для відстеження доступності працівника
-
         foreach (self::$cars as $value) {
+
             if ($brand === $value['brand']) {
                 // Якщо є працівник, який обслуговує автомобіль потрібного бренду, встановлюємо прапорець доступності
                 $employeeAvailable = true;
                 break; // Зупиняємо цикл, оскільки знайдено доступного працівника
             }
         }
-
         if ($employeeAvailable) {
             echo "Працівник прийняв замовлення на автомобіль бренду - $brand. " . "<br>";
-            //echo "Працівник прийняв замовлення на {$car->brand}.". "<br>";
+            //echo "Працівник прийняв замовлення на  {$car->brand}.". "<br>";
         } else {
             echo "Вибачте, немає доступного працівника для $brand " . $car->present;
+
             return $car;
+
         }
     }
 

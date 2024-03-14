@@ -27,28 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $serviceCenter->findAvailableEmployee($car);
 
 
-        // Перевірка, чи є авто запиту в масиві $cars
-        $carExists = false;
-        foreach ($cars as $carData) {
-            if ($carData['brand'] === $brand) {
-                $carExists = true;
-
-            }
-        }
-
-        if ($carExists) {
-            // Пошук вільного працівника
-            $availableEmployee = $serviceCenter->findAvailableEmployee($brand);
-
-            if ($availableEmployee) {
-                echo "Знайдено вільного працівника! Мпрацівник проводить діагностику.";
-
-            } else {
-                echo "Вибачте, усі майстри зайняті або не можуть прийняти ваш автомобіль.";
-            }
-        } else {
-            echo "Введений бренд автомобіля не знайдено.";
-        }
 
 }
 
